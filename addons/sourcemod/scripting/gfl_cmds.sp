@@ -3,60 +3,54 @@
 #pragma semicolon 1
 #pragma newdecls required
 
-#define PREFIX "\x01[\x0CGFL\x01]"
-ConVar g_cServerDiscord = null;
-ConVar g_cServerMOTD = null;
-ConVar g_cServerGamemode = null;
-char g_sServerDiscord[256];
-char g_sServerMOTD[256];
-char g_sServerGamemode[256];
+ConVar g_iServerDiscord = null;
 
 public Plugin myinfo =
 {
     name        =    "GFL Server Commands",
     author        =    "Infra",
-    description    =    "Essential Commands for GFL Servers",
-    version        =    "1.0",
+    description    =    "Essential Chat Commands for GFL Servers.",
+    version        =    "1.1",
 	url        =    "https://gflclan.com/profile/45876-infra/"
 };
 
 public void OnPluginStart()
 {
-	CreateConVar("GFL_Commands_version", "1.0", "GFL Commands Version", FCVAR_DONTRECORD|FCVAR_SPONLY|FCVAR_REPLICATED|FCVAR_NOTIFY);
+	LoadTranslations("gflcmds.phrases");
+	CreateConVar("GFL_Commands_version", "1.1", "GFL Commands Version", FCVAR_DONTRECORD|FCVAR_SPONLY|FCVAR_REPLICATED|FCVAR_NOTIFY);
 	
-	g_cServerGamemode = CreateConVar("gfl_server_gamemode", "", "Specify the name of the gamemode being hosted. Example: Surf Timer, Minigames, etc.");
-	GetConVarString(g_cServerGamemode, g_sServerGamemode, 256);
-	g_cServerDiscord = CreateConVar("gfl_server_discord", "", "Specify the server's official Discord Server invite link. Set as NONE to disable.");
-	GetConVarString(g_cServerDiscord, g_sServerDiscord, 256);
-	g_cServerMOTD = CreateConVar("gfl_server_motd", "", "Specify the link to the server's MOTD and Rules on the GFL Forums.");
-	GetConVarString(g_cServerMOTD, g_sServerMOTD, 256);
+	g_iServerDiscord = CreateConVar("gfl_server_discord", "0", "Enable/Disable the Discord link command. 1 = Enabled, 0 = Disabled.");
 	
 	AutoExecConfig(true, "GFL-Commands");
 	
 	RegConsoleCmd("sm_donate", Command_GFLDonate);
 	RegConsoleCmd("sm_vip", Command_GFLDonate);
 	RegConsoleCmd("sm_rules", Command_GFLRules);
-	RegConsoleCmd("sm_motd", Command_GFLRules);
 	RegConsoleCmd("sm_discord", Command_GFLDiscord);
 }
 
 public Action Command_GFLDonate(int client, int args)
 {
-	ReplyToCommand(client, "%s\x09 Make a donation and avail \x0EVIP\x09 perks on all GFL Servers at \x04https://gflclan.com/donate", PREFIX);
+	ReplyToCommand(client, "\x01[\x0CGFL\x01] \x09Make a donation and avail \x0EVIP\x09 perks on all GFL Servers at\x04 %t", "GFL_Donate");
 	return Plugin_Handled;
 }
 
 public Action Command_GFLRules(int client, int args)
 {
-	ReplyToCommand(client, "%s\x09 You can view the GFL % server rules and MOTD at \x04%s", PREFIX, g_sServerMOTD);
+	ReplyToCommand(client, "\x01[\x0CGFL\x01] \x09You can view the server rules and MOTD at\x04 %t", "GFL_MOTD");
 	return Plugin_Handled;	
 }
 
 public Action Command_GFLDiscord(int client, int args)
 {
-	if(!StrEqual(g_sServerDiscord, "NONE"))
+	if(GetConVarInt(g_iServerDiscord) > 0)
 	{
-		ReplyToCommand(client, "%s\x09 Join the GFL %s Discord Server! \x04%s", PREFIX, g_sServerGamemode, g_sServerDiscord);
+		ReplyToCommand(client, "\x01[\x0CGFL\x01] \x09Join our Discord Server!\x04 %t", "GFL_Discord");
+		return Plugin_Handled;
+	}
+
+	else 
+	{
 		return Plugin_Handled;
 	}
 }

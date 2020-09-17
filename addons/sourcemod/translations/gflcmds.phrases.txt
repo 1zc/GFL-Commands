@@ -1,0 +1,17 @@
+"Phrases"
+{
+	"GFL_Donate"
+	{
+		"en"        "https://gflclan.com/donate"
+	}
+
+	"GFL_MOTD"
+	{
+		"en"        "https://EDIT-THIS-IN-TRANSLATIONS"
+	}
+
+	"GFL_Discord"
+	{
+		"en"        "https://EDIT-THIS-IN-TRANSLATIONS"
+	}
+}
