@@ -5,6 +5,12 @@
 		"en"        "https://gflclan.com/donate"
 	}
 
+	"GFL_Perks"
+	{
+		"en"        "https://EDIT-THIS-IN-TRANSLATIONS"
+	}
+
+
 	"GFL_MOTD"
 	{
 		"en"        "https://EDIT-THIS-IN-TRANSLATIONS"

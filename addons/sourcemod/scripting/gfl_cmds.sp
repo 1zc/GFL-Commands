@@ -24,6 +24,7 @@ public void OnPluginStart()
 	AutoExecConfig(true, "GFL-Commands");
 	
 	RegConsoleCmd("sm_donate", Command_GFLDonate);
+	RegConsoleCmd("sm_perks", Command_GFLDonate);
 	RegConsoleCmd("sm_vip", Command_GFLDonate);
 	RegConsoleCmd("sm_rules", Command_GFLRules);
 	RegConsoleCmd("sm_discord", Command_GFLDiscord);
@@ -35,9 +36,15 @@ public Action Command_GFLDonate(int client, int args)
 	return Plugin_Handled;
 }
 
+public Action Command_GFLPerks(int client, int args)
+{
+	ReplyToCommand(client, "\x01[\x0CGFL\x01] \x09Check out all the perks we offer for Members and VIPs at\x04 %t", "GFL_Perks");
+	return Plugin_Handled;
+}
+
 public Action Command_GFLRules(int client, int args)
 {
-	ReplyToCommand(client, "\x01[\x0CGFL\x01] \x09You can view the server rules and MOTD at\x04 %t", "GFL_MOTD");
+	ReplyToCommand(client, "\x01[\x0CGFL\x01] \x09You can view the server rules at\x04 %t", "GFL_MOTD");
 	return Plugin_Handled;	
 }
 
