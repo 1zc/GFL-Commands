@@ -24,7 +24,7 @@ public void OnPluginStart()
 	AutoExecConfig(true, "GFL-Commands");
 	
 	RegConsoleCmd("sm_donate", Command_GFLDonate);
-	RegConsoleCmd("sm_perks", Command_GFLDonate);
+	RegConsoleCmd("sm_perks", Command_GFLPerks);
 	RegConsoleCmd("sm_vip", Command_GFLDonate);
 	RegConsoleCmd("sm_rules", Command_GFLRules);
 	RegConsoleCmd("sm_discord", Command_GFLDiscord);
